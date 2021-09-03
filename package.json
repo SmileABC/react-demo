@@ -12,7 +12,8 @@
   "dependencies": {
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-router-dom": "^5.2.1"
+    "react-router-dom": "^5.2.1",
+    "yarn": "^1.22.11"
   },
   "commitlint": {
     "extends": [
