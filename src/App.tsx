@@ -1,11 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import '@/assets/css/App.css';
+import { useState } from "react";
+import Routes from "@routes/index";
+import { BrowserRouter } from "react-router-dom";
 
-function App() {
+function App(): JSX.Element {
+  const [count, setCount] = useState(0);
+
   return (
-    <div className="app">
-    </div>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
   );
 }
 
