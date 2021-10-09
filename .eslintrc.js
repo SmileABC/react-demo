@@ -3,6 +3,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
   },
   extends: [
     "airbnb",
@@ -22,5 +23,7 @@ module.exports = {
     debugLevel: true,
   },
   plugins: ["@typescript-eslint", "react", "prettier", "jsx-a11y"],
-  rules: {},
+  rules: {
+    "global-require": 0,
+  },
 };

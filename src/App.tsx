@@ -1,10 +1,8 @@
-import { useState } from "react";
-import Routes from "@routes/index";
+import Routes from "@routes";
 import { BrowserRouter } from "react-router-dom";
+import "@style/index.less";
 
 function App(): JSX.Element {
-  const [count, setCount] = useState(0);
-
   return (
     <BrowserRouter>
       <Routes />

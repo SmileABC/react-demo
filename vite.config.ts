@@ -14,10 +14,10 @@
  *  在浏览器中无法直接使用 JSX，所以大多数 React 开发者需依靠 Babel 或 TypeScript 来将 JSX 代码转换为 JavaScript。
  *
  *  vite-plugin-windicss
- *  windicss 快！！！！
+ *  预设css样式  Tailwind 的替代品  windicss 快！！！！
  */
 
-
+import { resolve, join } from 'path'
 import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import legacy from '@vitejs/plugin-legacy'
@@ -31,23 +31,49 @@ export default defineConfig({
   plugins: [
     windicss(),
     reactRefresh(),
-    legacy(),
+    legacy({
+      targets: ['> 1%, last 1 version, ie >= 11'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'], // 面向IE11时需要此插件
+    }),
     tsconfigPaths(),
     reactJsx(),
   ],
   build: {
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, './index.html'),
+        fuse: resolve(__dirname, './domain/fuse/index.html'),
+        iast: resolve(__dirname, './domain/iast/index.html'),
+        oss: resolve(__dirname, './domain/oss/index.html'),
+        pte: resolve(__dirname, './domain/pte/index.html'),
+        rasp: resolve(__dirname, './domain/rasp/index.html'),
+      },
       output: {
         manualChunks: {
-          react: ["react"],
-          "react-dom": ["react-dom"],
+          react: ['react'],
+          'react-dom': ['react-dom'],
         },
       },
     },
+    chunkSizeWarningLimit: 2000,
+    brotliSize: false
+  },
+  resolve: {
+    alias: {
+      '@': join(__dirname, 'src'),
+      '@views': join(__dirname, 'src/views'),
+      '@assets': join(__dirname, 'src/assets'),
+      '@components': join(__dirname, 'src/components'),
+      '@routes': join(__dirname, 'src/routes'),
+      '@style': join(__dirname, 'src/style'),
+    },
   },
   server: {
-    host: '127.0.0.1',
-    port: 3000,
+    host: 'localhost',
+    port: 9099,
+    fs: {
+      strict: false
+    },
     proxy: {
       // 选项写法
       '/api': {
